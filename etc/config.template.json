@@ -1,0 +1,6 @@
+{
+	"db": "mongodb://127.0.0.1",
+	"logocachedir": "/tmp/discojuice/logos/",
+	"cachedir": "/tmp/discojuice/",
+	"geodatabase": "/var/GeoLite2-City.mmdb"
+}

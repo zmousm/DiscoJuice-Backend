@@ -1,0 +1,5 @@
+vendor
+composer.lock
+composer.phar
+etc/config.json
+var/GeoIP2-City.mmdb
