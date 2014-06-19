@@ -20,6 +20,11 @@ Install external libraries
 
 	./composer.phar install
 
+Prepare cache directories:
+
+	mkdir -p /tmp/discojuice/
+	mkdir -p /tmp/discojuice/logos/
+
 
 ## Patch xmlseclibs
 
