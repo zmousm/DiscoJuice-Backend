@@ -21,6 +21,10 @@ Install external libraries
 	./composer.phar install
 
 
+## Patch xmlseclibs
+
+To handle large metadatafiles, and get around a bug in php, patch xmlseclibs.
+
 ## Getting started
 
 
