@@ -23,7 +23,7 @@ Install external libraries
 
 ## Patch xmlseclibs
 
-To handle large metadatafiles, and get around a bug in php, patch xmlseclibs.
+To handle large metadatafiles, [and get around a bug in php, patch xmlseclibs](https://09068716785457748500.googlegroups.com/attach/2f8a095b7c8d01d1/0001-xmlseclibs-Workaround-for-slow-canonicalization.patch?part=0.1&view=1&vt=ANaJVrEfixroqa1LcNBB26tPOyVJwBUCE5Gm2jxIidkLjzhAnOSeo2EUwPvZfeD7Dy9ftdJisZBAAUWi_btcbM-D2d3Ud1I-0qw2j-Zea88hIq-AunLsoj4).
 
 ## Getting started
 
