@@ -84,7 +84,6 @@ class DiscoStore {
 			$this->insert($item);
 		}
 
-
 	}
 
 	function remove($feed, $entityId) {

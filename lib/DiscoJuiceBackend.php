@@ -16,6 +16,13 @@ class DiscoJuiceBackend {
 		$this->enableCacheOnly = $en;
 	}
 
+	function updateFeide() {
+
+		
+
+
+	}
+
 
 	function updateFeed($feedId) {
 
