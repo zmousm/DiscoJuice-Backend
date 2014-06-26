@@ -91,4 +91,28 @@ class DiscoUtils {
 	}
 
 
+
+
+	public static function route($method = false, $match, &$parameters, &$object = null) {
+		if (empty($_SERVER['PATH_INFO']) || strlen($_SERVER['PATH_INFO']) < 2) return false;
+
+		$inputraw = file_get_contents("php://input");
+		if ($inputraw) {
+			$object = json_decode($inputraw, true);
+		}
+
+
+		$path = $_SERVER['PATH_INFO'];
+		$realmethod = strtolower($_SERVER['REQUEST_METHOD']);
+
+		if ($method !== false) {
+			if (strtolower($method) !== $realmethod) return false;
+		}
+		if (!preg_match('|^' . $match . '|', $path, $parameters)) return false;
+		return true;
+	}
+
+
+
+
 }

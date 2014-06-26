@@ -103,5 +103,36 @@ class DiscoStore {
 	}
 
 
+	function getFeed($feed) {
+
+		$query = array(
+			'feed' => $feed
+		);
+		$cursor = $this->db->idps->find($query);
+		$entities = array();
+		foreach($cursor AS $item) {
+			$n = $item['disco'];
+			$n['entityId'] = $item['entityId'];
+			$entities[] = $n;
+		}
+		return $entities;
+
+	}
+	function getFeedMetadata($feed) {
+
+		$query = array(
+			'feed' => $feed
+		);
+		$cursor = $this->db->idps->find($query);
+		$entities = array();
+		foreach($cursor AS $item) {
+			$n = $item['metadata'];
+			unset($n['entityDescriptor']);
+			// $n['entityId'] = $item['entityId'];
+			$entities[] = $n;
+		}
+		return $entities;
+
+	}
 
 }
