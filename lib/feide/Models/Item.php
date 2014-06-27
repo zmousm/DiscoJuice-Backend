@@ -49,8 +49,10 @@ class Item {
 			$res[] = self::fromDB($item);
 		}
 		return $res;
+
 	}
 	
+
 	public function hasAttr($key) {
 		return isset($this->attr[$key]);
 
