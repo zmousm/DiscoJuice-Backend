@@ -24,8 +24,9 @@ require_once($BASE . 'MetaLoader.php');
 require_once($BASE . 'DiscoFeed.php');
 require_once($BASE . 'DiscoJuiceBackend.php');
 
-// require_once($BASE . 'feide/utils/wscraper.php');
+
 require_once($BASE . 'feide/Models/Item.php');
+require_once($BASE . 'feide/Models/Collection.php');
 require_once($BASE . 'feide/Models/FeideService.php');
 require_once($BASE . 'feide/Models/FeideOrg.php');
 require_once($BASE . 'feide/KIND.php');

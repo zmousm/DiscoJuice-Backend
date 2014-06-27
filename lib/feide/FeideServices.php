@@ -8,8 +8,6 @@ class FeideServices {
 	function __construct() {
 		
 
-
-
 	}
 
 	function update() {

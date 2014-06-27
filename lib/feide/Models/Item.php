@@ -32,6 +32,23 @@ class Item {
 		return $i;
 	}
 
+	public function getView() {
+		return $this->attr;
+	}
+	public static function getAll() {
+
+		$dbconfig = Config::get('db');
+		$client = new MongoClient($dbconfig);
+		$db = $client->feide;
+
+
+		$res = array();
+		$cursor = $db->{static::$collection}->find();
+		foreach($cursor AS $item) {
+			$res[] = self::fromDB($item);
+		}
+		return $res;
+	}
 
 
 	protected function getQuery() {
