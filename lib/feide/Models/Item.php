@@ -32,7 +32,21 @@ class Item {
 		return $i;
 	}
 
+	public function hasAttr($key) {
+		return isset($this->attr[$key]);
+	}
 
+	public function get($key, $default = '__DEFAULT__') {
+		if (isset($this->attr[$key])) {
+			return $this->attr[$key];
+		}
+		if ($default !== '__DEFAULT__') return $default;
+		throw new Exception('Cannot get key ['. $key . '] from item');
+	}
+
+	public function set($key, $value) {
+		$this->attr[$key] = $value;
+	}
 
 	protected function getQuery() {
 		if (empty($this->attr['id'])) throw new Exception('Missing [id]');

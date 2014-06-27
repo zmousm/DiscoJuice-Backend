@@ -18,13 +18,13 @@ require_once($BASE . 'GeoService.php');
 require_once($BASE . 'LogoCache.php');
 require_once($BASE . 'DiscoUtils.php');
 require_once($BASE . 'DiscoStore.php');
-require_once($BASE . 'DiscoStoreLogos.php');
+// require_once($BASE . 'DiscoStoreLogos.php'); // Replace this with logostore.
+require_once($BASE . 'LogoStore.php');
 require_once($BASE . 'FeedItem.php');
 require_once($BASE . 'MetaLoader.php');
 require_once($BASE . 'DiscoFeed.php');
 require_once($BASE . 'DiscoJuiceBackend.php');
 
-// require_once($BASE . 'feide/utils/wscraper.php');
 require_once($BASE . 'feide/Models/Item.php');
 require_once($BASE . 'feide/Models/FeideService.php');
 require_once($BASE . 'feide/Models/FeideOrg.php');
