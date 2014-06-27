@@ -307,6 +307,42 @@ class FeedItem {
 		
 	}
 
+	protected static function getPreferredLogo($logos) {
+		
+		$current = array('height' => 0);
+		$found = false;
+		
+		foreach($logos AS $logo) {
+			if (
+					$logo['height'] > 23 && 
+					$logo['height'] < 41 && 
+					$logo['height'] > $current['height']
+				) {
+				$current = $logo;
+				$found = true;
+			}
+		}
+		if ($found) return $current;
+		
+		foreach($logos AS $logo) {
+			if (
+					$logo['height'] > $current['height']
+				) {
+				$current = $logo;
+				$found = true;
+			}
+		}
+		if ($found) return $current;
+		
+		return NULL;
+		
+	}
+
+
+
+
+
+
 
 	protected function getLogo(&$data, $m) {
 
@@ -317,14 +353,25 @@ class FeedItem {
 
 		if (!empty($m['UIInfo']) && !empty($m['UIInfo']['Logo'])) {
 			
-			$cl = LogoCache::getPreferredLogo($m['UIInfo']['Logo']);
+			$cl = self::getPreferredLogo($m['UIInfo']['Logo']);
 			
 			// error_log('Preferred logo: ' . var_export($cl, true));
 			
+			
+
 			if (!empty($cl)) {
-				$ok = $logocache->getLogo($this->entityId, $this->feed, $cl);
-				if ($ok === true) {
-					$data['icon'] = true;	
+
+				$src = $cl['url'];
+				$id = sha1($this->feed . '|' . $this->entityId);
+				$meta = array(
+					'entityId' => $this->entityId,
+					'feed' => $this->feed
+				);
+				$ok = $logocache->getLogoURL($id, $src, $meta);
+
+				// $ok = $logocache->getLogo($this->entityId, $this->feed, $cl);
+				if (!empty($ok)) {
+					$data['icon'] = $ok;	
 				}
 				
 				// $cached = $logocache->getCachedLogo($cl);
@@ -344,3 +391,5 @@ class FeedItem {
 
 
 }
+
+
