@@ -11,12 +11,12 @@ class Collection
 		$this->items = $items;
 	}
 
-	function getView() {
+	function getView($opts = array()) {
 		$res = array(
 			'Resources' => array()
 		);
 		foreach($this->items AS $x) {
-			$res['Resources'][] = $x->getView();
+			$res['Resources'][] = $x->getView($opts);
 		}
 		$res['count'] = count($this->items);
 
@@ -24,3 +24,4 @@ class Collection
 	}
 
 }
+

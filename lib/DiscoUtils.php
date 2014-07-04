@@ -2,7 +2,19 @@
 
 class DiscoUtils {
 
+	protected static $logConsole = true;
+
+	public static function logConsole($en = true) {
+		self::$logConsole = $en;
+	}
+
 	public static function log($txt, $head = false) {
+
+		if (!self::$logConsole) {
+			error_log('DiscoJuice Logger: ' . $txt);
+			return;
+		}
+
 
 		if ($head) {
 			echo "\n";

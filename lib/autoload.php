@@ -26,8 +26,12 @@ require_once($BASE . 'DiscoFeed.php');
 require_once($BASE . 'DiscoJuiceBackend.php');
 
 
+require_once($BASE . 'GateKeeperController.php');
+
 require_once($BASE . 'feide/Models/Item.php');
+require_once($BASE . 'feide/Favourites.php');
 require_once($BASE . 'feide/Models/Collection.php');
+require_once($BASE . 'feide/Models/ServiceCollection.php');
 require_once($BASE . 'feide/Models/FeideService.php');
 require_once($BASE . 'feide/Models/FeideOrg.php');
 require_once($BASE . 'feide/KIND.php');

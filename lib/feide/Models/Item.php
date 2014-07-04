@@ -33,9 +33,25 @@ class Item {
 	}
 
 
+	public static function getByID($id) {
+
+		$dbconfig = Config::get('db');
+		$client = new MongoClient($dbconfig);
+		$db = $client->feide;
+
+
+		$data = $db->{static::$collection}->findOne(array('id' => $id));
+		if ($data === null) return null;
+		return self::fromDB($data);
+
+	}
+
+
 	public function getView() {
 		return $this->attr;
 	}
+
+
 	public static function getAll() {
 
 		$dbconfig = Config::get('db');
