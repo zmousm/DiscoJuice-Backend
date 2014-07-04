@@ -115,7 +115,7 @@ class LogoCache {
 				return $this->fetchAndStore($id, $src, $meta, $existing, $localFile);
 			} else {
 				DiscoUtils::debug('Logo is cached for less than the MAX CACHE TIME. Will not be updated yet.');
-				return true;
+				return $id;
 			}
 		}
 

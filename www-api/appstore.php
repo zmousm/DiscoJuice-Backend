@@ -59,11 +59,12 @@ try {
 
 
 
-	} else if (DiscoUtils::route('get', '^/logo$', $parameters, $qs)) {
+	} else if (DiscoUtils::route('get', '^/logo/([^/]+)$', $parameters, $qs)) {
+
+		echo "We found logo " . $parameters[0];
 
 
-
-
+		$id = $parameters[1];
 
 		// if (!isset($_REQUEST['entityId'])) {
 		// 	throw new Exception('Missing required parameter entityId');
@@ -72,12 +73,12 @@ try {
 		// 	throw new Exception('Missing required parameter feed');
 		// }
 
-		// $data = $logostore->get($_REQUEST['entityId'], $_REQUEST['feed'], true);
-		// // $data = $logostore->get('https://pieter.aai.surfnet.nl/simplesamlphp/saml2/idp/metadata.php', 'surfnet2', true);
+		$data = $logocache->get($id, true);
+		// $data = $logostore->get('https://pieter.aai.surfnet.nl/simplesamlphp/saml2/idp/metadata.php', 'surfnet2', true);
 
-		// header('Content-Type: image/png');
-		// echo $data['logo']->bin;
-		// exit;
+		header('Content-Type: image/png');
+		echo $data['logo']->bin;
+		exit;
 
 
 	} else {
