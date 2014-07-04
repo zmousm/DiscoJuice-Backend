@@ -121,10 +121,7 @@ try {
 
 			$userid = $gk->getUserID();
 			$fav = Favourites::getByID($userid);
-
-
 			$col->filterByList($fav->get('favs'));
-
 
 		} else if ($type === 'potential') {
 			$col->filterByRealm($realm, false);
@@ -133,9 +130,9 @@ try {
 
 
 
-
 		$response = $col->getView(array('realm' => $realm));
 		$response['orgInfo'] = FeideOrg::getByRealm($realm);
+
 
 
 
@@ -185,10 +182,6 @@ try {
 		} else {
 			$response = array();
 		}
-
-
-		// $response = array('foo', 'bar');
-
 
 
 

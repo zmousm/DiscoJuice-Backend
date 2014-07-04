@@ -33,7 +33,61 @@ class FeideServices {
 
 	}
 
-	function getStatistics() {
+
+	function getStatsWeek($start) {
+
+		$token = $this->feideconfig['token'];
+		$amount = 1;
+		$url = 'https://api.feide.no/stats/0/logins?&access_token=' . $token . '&readable&' . 
+			'start=' . urlencode($start) . '&amount=' . $amount . '&unit=weeks&details';
+		$rawdata = file_get_contents($url);
+		$data = json_decode($rawdata, true);
+		return $data['sp'];
+
+	}
+
+	function getStatsAllWeeks($allSps) {
+
+		// print_r($allSps); exit;
+
+		$noWeeks = 52;
+		$stats = array();
+
+		$date = new DateTime();
+		$date->modify('-1 year');
+
+		// $allSps = array();
+
+		// for($i = 0; $i < 52; $i++) {
+		for($i = 0; $i < $noWeeks; $i++) {
+
+			$startWeek = $date->format('Y-m-d 00:00:00');
+			$weekstat = $this->getStatsWeek($startWeek);
+
+			// echo "Processing " . $startWeek . "\n";
+
+			foreach($allSps AS $sp) {
+				// echo "Processing " . $sp . "\n";
+				if (!isset($stats[$sp])) $stats[$sp] = array();
+				// print_r($stats[$sp]);
+
+				if (isset($weekstat[$sp])) {
+					$stats[$sp][] = $weekstat[$sp];
+				} else {
+					$stats[$sp][] = 0;
+				}
+				// print_r($stats[$sp]);
+			}
+
+			// print_r($stats); exit;
+			$date->modify('+1 week');
+			// echo "Counter " . $i . "\n";
+		}
+		return $stats;
+	}
+
+
+	function getStatisticsTotal() {
 
 		$token = $this->feideconfig['token'];
 
@@ -47,7 +101,7 @@ class FeideServices {
 		$rawdata = file_get_contents($url);
 		$data = json_decode($rawdata, true);
 
-		print_r($data['sp']);
+		// print_r($data['sp']);
 
 		return $data['sp'];
 	}
@@ -182,6 +236,9 @@ class FeideServices {
 			}
 
 
+			// echo "Dump"; print_r($d); 
+			// if ($i++ > 3) exit;
+
 
 			// print_r($services[$k]);
 
@@ -190,9 +247,27 @@ class FeideServices {
 
 		}
 
+		function arrSum($a, $b) {
+			$res = array();
+			foreach($a AS $k => $v) {
+				if (isset($b[$k]) && isset($a[$k])) {
+					$res[] = $a[$k] + $b[$k];
+				} else if (isset($a[$k])) {
+					$res[] = $a[$k];
+				} else {
+					$res[] = $b[$k];
+				}
+			}
+			return $res;
+		}
+
+
 		// exit;
 	
-		$stats = $this->getStatistics();
+		$stats = $this->getStatisticsTotal();
+		$statsfull = $this->getStatsAllWeeks(array_keys($stats));
+		// print_r($statsfull); exit;
+		
 		foreach($items AS $item) {
 
 			$entityIDs = $item->get('entityIDs');
@@ -204,6 +279,19 @@ class FeideServices {
 			}
 
 			$item->set('statistics', $total);
+
+			$fullStat = array();
+			foreach($entityIDs AS $entityID) {
+				if (isset($statsfull[$entityID])) {
+					$fullStat = arrSum($statsfull[$entityID], $total);
+					// $total += $stats[$entityID];
+				}
+			}
+			$item->set('statistics-full', $fullStat);
+
+
+
+
 			// $item->save();
 
 
