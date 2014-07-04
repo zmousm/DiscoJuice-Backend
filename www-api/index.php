@@ -24,6 +24,8 @@ header("Access-Control-Expose-Headers: Authorization, X-Requested-With, Origin, 
 $profiling = microtime(true);
 error_log("Time START    :     ======> " . (microtime(true) - $profiling));
 
+
+
 try {
 
 	$response = null;
@@ -54,6 +56,11 @@ try {
 	} else if (DiscoUtils::route('get', '^/feed/([a-z0-9\-_]+)/metadata$', $parameters, $body)) {
 
 		$response = $store->getFeedMetadata($parameters[1]);
+
+
+	} else if (DiscoUtils::route('get', '^/apps$', $parameters, $body)) {
+
+		$response = array('foo' => 'bar');
 
 
 	} else if (DiscoUtils::route('get', '^/logo$', $parameters, $qs)) {
@@ -88,22 +95,24 @@ try {
 
 	// UWAPLogger::stat('timing', $key, $timer);
 
-} catch(NotFound $e) {
+// } catch(NotFound $e) {
 
-	header("HTTP/1.0 404 Not Found");
-	header('Content-Type: text/plain; charset: utf-8');
-	echo "Error stack trace: \n";
-	print_r($e);
+// 	header("HTTP/1.0 404 Not Found");
+// 	header('Content-Type: text/plain; charset: utf-8');
+// 	echo "Error stack trace: \n";
+// 	print_r($e);
 
 
 } catch(Exception $e) {
 
 	// TODO: Catch OAuth token expiration etc.! return correct error code.
 
-	header("HTTP/1.0 500 Internal Server Error");
+	// header("HTTP/1.0 500 Internal Server Error");
 	header('Content-Type: text/plain; charset: utf-8');
 	echo "Error stack trace: \n";
 	print_r($e);
 
 
 }
+
+
