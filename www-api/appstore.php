@@ -51,6 +51,7 @@ try {
 
 
 		$realm = $parameters[1];
+		// $realm = 'ntnu.no';
 
 		$services = FeideService::getByRealm($realm);
 		$col = new Collection($services);
@@ -61,8 +62,7 @@ try {
 
 	} else if (DiscoUtils::route('get', '^/logo/([^/]+)$', $parameters, $qs)) {
 
-		echo "We found logo " . $parameters[0];
-
+		// echo "We found logo " . $parameters[0];
 
 		$id = $parameters[1];
 

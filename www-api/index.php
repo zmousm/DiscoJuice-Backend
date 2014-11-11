@@ -5,6 +5,9 @@
  *
  */
 
+
+echo "poot"; exit;
+error_log("ACCESS");
 require_once(dirname(dirname(__FILE__)) . '/lib/autoload.php');
 
 class NotFound extends Exception {
@@ -23,6 +26,8 @@ header("Access-Control-Expose-Headers: Authorization, X-Requested-With, Origin, 
 
 $profiling = microtime(true);
 error_log("Time START    :     ======> " . (microtime(true) - $profiling));
+
+
 
 try {
 
