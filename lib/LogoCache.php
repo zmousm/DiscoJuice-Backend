@@ -12,14 +12,16 @@ function url_get_contents ($Url) {
 	curl_setopt($ch, CURLOPT_TIMEOUT, 2); //timeout in seconds
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+	// curl_setopt($ch, CURLOPT_SSLVERSION, 3);
 
     $output = curl_exec($ch);
-    curl_close($ch);
+
 
     if ($output === false) {
     	$err = curl_error($ch);
     	DiscoUtils::error('Error downloading from [' . $Url . '] ' . $err);
     }
+    curl_close($ch);
 
     return $output;
 }
