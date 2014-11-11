@@ -7,8 +7,33 @@ class DiscoJuiceBackend {
 
 	function __construct() {
 		global $BASE;
-		$this->feedconfiglist = json_decode(file_get_contents(dirname($BASE) . '/etc/feeds.js'), TRUE);
-		if ($this->feedconfiglist === NULL) throw new Exception('Errors in feeds.js: ' . error_get_last());
+		// $this->feedconfiglist = json_decode(file_get_contents(dirname($BASE) . '/etc/feeds.js'), TRUE);
+		// if ($this->feedconfiglist === NULL) throw new Exception('Errors in feeds.js: ' . error_get_last());
+
+		$this->loadFeed();
+
+	}
+
+	function getFeedConfig($id) {
+		foreach($this->feedconfiglist AS $item) {
+			if ($item['id'] === $id) {
+				return $item;
+			}
+		}
+		return null;
+	}
+
+
+	function loadFeed() {
+
+		$ds = new DiscoStore();
+		$this->feedconfiglist = $ds->getFeedList();
+
+		// print_r($list);
+
+
+		// exit;
+		// return $list;
 
 	}
 
@@ -27,10 +52,10 @@ class DiscoJuiceBackend {
 	function updateFeed($feedId) {
 
 		try {
-			if (!isset($this->feedconfiglist[$feedId])) {
+			$config = $this->getFeedConfig($feedId);
+			if ($config === null) {
 				throw new Exception('Invalid feed identifier provided. No config found');
 			}
-			$config = $this->feedconfiglist[$feedId];
 
 
 			DiscoUtils::log('Update feed ' . $feedId, true);
@@ -66,9 +91,9 @@ class DiscoJuiceBackend {
 
 	function update() {
 
-		foreach($this->feedconfiglist AS $id => $feedconfig) {
+		foreach($this->feedconfiglist AS $feedconfig) {
 
-
+			$id = $feedconfig['id'];
 			$this->updateFeed($id);
 
 
