@@ -24,8 +24,8 @@ class DiscoStoreLogos {
 		return $query;
 	}
 
-	function get($entityId, $feed, $includeData = false) {
 
+	function get($entityId, $feed, $includeData = false) {
 
 		$fields = null;
 		if (!$includeData) {
@@ -36,10 +36,7 @@ class DiscoStoreLogos {
 
 		$existing = $this->db->logos->findOne($this->getQuery($entityId, $feed));
 		return $existing;
-
-
 	}
-
 
 
 	function insert($data) {
@@ -48,6 +45,7 @@ class DiscoStoreLogos {
 		$this->db->logos->insert($data);
 
 	}
+	
 
 	function update($data) {
 
