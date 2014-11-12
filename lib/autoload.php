@@ -22,6 +22,7 @@ require_once($BASE . 'DiscoStore.php');
 // error_log( "Require discostore logos");
 require_once($BASE . 'DiscoStoreLogos.php'); // Replace this with logostore.
 
+require_once($BASE . 'Pipe.php');
 require_once($BASE . 'LogoStore.php');
 require_once($BASE . 'FeedItem.php');
 require_once($BASE . 'Feed.php');

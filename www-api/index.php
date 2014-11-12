@@ -69,6 +69,27 @@ try {
 		$data['geo'] = $geoservice->geoFromIP($clientIP);
 		$response = $data;
 
+	} else if (DiscoUtils::route('get', '^/pipe/([a-z0-9\-_]+)$', $parameters, $body)) {
+
+		$response = $store->getPipe($parameters[1]);
+		unset($response['_id']);
+
+	} else if (DiscoUtils::route('get', '^/pipe/([a-z0-9\-_]+)/disco$', $parameters, $body)) {
+
+		$c = $store->getPipe($parameters[1]);
+
+		if ($c === null) {
+			echo "not found pipe " . $parameters[1];
+		}
+
+		$pipe = Pipe::fromDB($c);
+		$query = $pipe->getQuery();
+		$response = $store->getIdPs($query);
+
+		// $response = $query;
+		// $response = $store->getFeed($parameters[1]);
+
+
 	} else if (DiscoUtils::route('get', '^/feed/([a-z0-9\-_]+)/disco$', $parameters, $body)) {
 
 		$response = $store->getFeed($parameters[1]);

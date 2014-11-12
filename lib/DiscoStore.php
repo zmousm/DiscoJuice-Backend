@@ -134,6 +134,15 @@ class DiscoStore {
 
 	}
 
+	function getPipe($id) {
+
+		$query = array(
+			'id' => $id
+		);
+		$pipe = $this->db->pipes->findOne($query);
+		return $pipe;
+	}
+
 	function getFeedList() {
 
 		$query = array();
@@ -145,6 +154,17 @@ class DiscoStore {
 		return $feeds;
 	}
 
+	function getIdPs($query) {
+
+		$cursor = $this->db->idps->find($query);
+		$entities = array();
+		foreach($cursor AS $item) {
+			$n = $item['disco'];
+			$n['entityId'] = $item['entityId'];
+			$entities[] = $n;
+		}
+		return $entities;
+	}
 
 	function insertOrUpdateFeed($item) {
 
