@@ -2,4 +2,5 @@ vendor
 composer.lock
 composer.phar
 etc/config.json
+etc/apiconfig.json
 var/GeoIP2-City.mmdb
