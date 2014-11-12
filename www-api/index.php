@@ -44,7 +44,17 @@ try {
 	$store = new DiscoStore();
 	$logostore = new DiscoStoreLogos();
 
-	if (DiscoUtils::route('get', '^/geo$', $parameters, $body)) {
+	
+
+	if (DiscoUtils::route('get', '^/$', $parameters, $body)) {
+
+		header('Content-Type: text/plain; charset=utf-8');
+		echo "Welcome to DiscoJuice API\n" . 
+			"Consult documentation for details about using the API.\n" .
+			"http://discojuice.org";
+		exit;
+
+	} else if (DiscoUtils::route('get', '^/geo$', $parameters, $body)) {
 		$geoservice = new GeoService();
 		$data = array();
 		$clientIP = $_SERVER['REMOTE_ADDR'];
