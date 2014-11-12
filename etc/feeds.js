@@ -31,7 +31,7 @@
 		"zoom": 8
 	},
 	"arnes": {
-		"url": "http://ds.aai.arnes.si/metadata/aai.arnes.si.xml",
+		"url": "http://ds.aai.arnes.si/metadata/aai.arnes.si.signed.xml",
 		"country": "SI",
 		"CountrySearch": "Slovenia",
 		"zoom": 8

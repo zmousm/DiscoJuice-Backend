@@ -107,7 +107,9 @@ try {
 
 
 		$realm = $parameters[1];
+
 		$type = $parameters[2];
+
 
 		$services = FeideService::getAll();
 		usort($services, 'ss');
@@ -129,6 +131,7 @@ try {
 		}
 
 
+		// echo "We found logo " . $parameters[0];
 
 		$response = $col->getView(array('realm' => $realm));
 		$response['orgInfo'] = FeideOrg::getByRealm($realm);

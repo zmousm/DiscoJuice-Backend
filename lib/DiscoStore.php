@@ -134,4 +134,43 @@ class DiscoStore {
 
 	}
 
+	function getFeedList() {
+
+		$query = array();
+		$cursor = $this->db->feeds->find($query);
+		$feeds = array();
+		foreach($cursor AS $item) {
+			$feeds[] = $item;
+		}
+		return $feeds;
+	}
+
+
+	function insertOrUpdateFeed($item) {
+
+		$query = array(
+			'id' => $item['id'],
+		);
+		$existing = $this->db->feeds->findOne($query);
+		if ($existing !== null) {
+
+
+			foreach($item AS $k => $v) {
+				$existing[$k] = $v;
+			}
+
+			$existing['update'] = new MongoDate();
+
+			$this->db->feeds->update($query, $existing);
+			DiscoUtils::log('Updating feed config ' . tc_colored('UPDATE', 'red')  . ' ' . $item['id']);			
+
+		} else {
+
+			$item['created'] = new MongoDate();
+			$this->db->feeds->insert($item);
+			DiscoUtils::log('Adding new metadata feed ' . tc_colored('INSERT', 'green')  . ' ' . $item['id']);
+		}
+
+	}
+
 }
