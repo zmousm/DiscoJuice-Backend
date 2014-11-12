@@ -79,7 +79,10 @@ class LogoCache {
 	}
 
 	protected function getAge($data) {
-		$ts = (int)$data['created']->sec;
+		$ts = time();
+		if (isset($data['created'])) {
+			$ts = (int)$data['created']->sec;			
+		}
 		if (isset($data['updated'])) {
 			$ts = (int)$data['updated']->sec;
 		}
