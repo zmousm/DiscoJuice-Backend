@@ -6,8 +6,6 @@
  */
 
 
-echo "poot"; exit;
-error_log("ACCESS");
 require_once(dirname(dirname(__FILE__)) . '/lib/autoload.php');
 
 class NotFound extends Exception {
@@ -46,6 +44,7 @@ try {
 
 	
 
+
 	if (DiscoUtils::route('get', '^/$', $parameters, $body)) {
 
 		header('Content-Type: text/plain; charset=utf-8');
@@ -53,6 +52,14 @@ try {
 			"Consult documentation for details about using the API.\n" .
 			"http://discojuice.org";
 		exit;
+
+	} else if (DiscoUtils::route('get', '^/feeds$', $parameters, $body)) {
+
+
+		$list = $store->getFeedList();
+		$response = Feed::toJSONlist($list);
+		// $response = $list;
+
 
 	} else if (DiscoUtils::route('get', '^/geo$', $parameters, $body)) {
 		$geoservice = new GeoService();

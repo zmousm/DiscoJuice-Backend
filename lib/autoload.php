@@ -24,6 +24,7 @@ require_once($BASE . 'DiscoStoreLogos.php'); // Replace this with logostore.
 
 require_once($BASE . 'LogoStore.php');
 require_once($BASE . 'FeedItem.php');
+require_once($BASE . 'Feed.php');
 require_once($BASE . 'MetaLoader.php');
 require_once($BASE . 'DiscoFeed.php');
 require_once($BASE . 'DiscoJuiceBackend.php');
