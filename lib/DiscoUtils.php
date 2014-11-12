@@ -106,7 +106,11 @@ class DiscoUtils {
 
 
 	public static function route($method = false, $match, &$parameters, &$object = null) {
-		if (empty($_SERVER['PATH_INFO']) || strlen($_SERVER['PATH_INFO']) < 2) return false;
+
+		// echo "PATHINFO ." . $_SERVER['PATH_INFO'] . ".";
+		if (empty($_SERVER['PATH_INFO']) || strlen($_SERVER['PATH_INFO']) < 1) return false;
+
+		
 
 		$inputraw = file_get_contents("php://input");
 		if ($inputraw) {
@@ -120,13 +124,12 @@ class DiscoUtils {
 		if ($method !== false) {
 			if (strtolower($method) !== $realmethod) return false;
 		}
-
-
-		if (!preg_match('|^' . $match . '|', $path, $parameters)) return false;
+		
+		// echo "Checking MATCH [" . $match . "] against path [" . $path . "]";
+		if (!preg_match('|' . $match . '|', $path, $parameters)) return false;
 		return true;
+		
 	}
-
-
 
 
 }
