@@ -120,6 +120,8 @@ class DiscoUtils {
 		if ($method !== false) {
 			if (strtolower($method) !== $realmethod) return false;
 		}
+
+
 		if (!preg_match('|^' . $match . '|', $path, $parameters)) return false;
 		return true;
 	}
