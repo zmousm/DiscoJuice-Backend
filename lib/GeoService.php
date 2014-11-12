@@ -26,7 +26,7 @@ class GeoService {
 		'rb.' => 'BR',
 	);
 
-	protected $reader;
+	protected static $reader = null;
 
 	function __construct() {
 		global $BASE;
@@ -45,12 +45,17 @@ class GeoService {
 
 		try {
 
-			// $reader = new GeoIp2\Database\Reader($THISPATH . 'var/GeoLite2-City.mmdb');
-			$this->reader = new GeoIp2\Database\Reader($geoipfile); // 'var/GeoIP2-City.mmdb');
+
+			if (self::$reader === null) {
+				self::$reader = new GeoIp2\Database\Reader($geoipfile); // 'var/GeoIP2-City.mmdb');
+			} 
+
+			
 	
 
 		} catch(Exception $e) {
-			error_log("Error reading geo IP database.");
+			error_log("Error reading geo IP database. [" . $geoipfile . "]");
+			print_r($e);
 		}
 
 
@@ -62,7 +67,7 @@ class GeoService {
 	public function countryFromIP($ip) {
 
 		try {
-			$record = $this->reader->city($ip);
+			$record = self::$reader->city($ip);
 			return $record->country->isoCode;
 			// print_r($record->country->isoCode); exit;
 
@@ -85,7 +90,7 @@ class GeoService {
 	public function geoFromIP($ip) {
 
 		try {
-			$record = $this->reader->city($ip);
+			$record = self::$reader->city($ip);
 			$geo = array(
 				'lat' => $record->location->latitude,
 				'lon' => $record->location->longitude
