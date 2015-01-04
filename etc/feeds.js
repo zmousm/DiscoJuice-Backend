@@ -330,7 +330,7 @@
 		"zoom": 6
 	},
 	"niif": {
-		"url": "http://metadata.eduid.hu/metadata.xml",
+		"url": "https://metadata.eduid.hu/current/href.xml",
 		"country": "HU",
 		"CountrySearch": "Hungary",
 		"zoom": 7
