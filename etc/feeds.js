@@ -294,7 +294,7 @@
 		"zoom": 4
 	},
 	"caf": {
-		"url": "https://caf-shibops.ca/CoreServices/cafshib_metadata_signed.xml",
+		"url": "https://caf-shib2ops.ca/CoreServices/caf_metadata_signed_sha256.xml",
 		"country": "CA",
 		"CountrySearch": "Canada",
 		"zoom": 4
