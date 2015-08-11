@@ -18,6 +18,7 @@ require_once($BASE . 'GeoService.php');
 require_once($BASE . 'LogoCache.php');
 require_once($BASE . 'DiscoUtils.php');
 require_once($BASE . 'DiscoStore.php');
+require_once($BASE . 'DiscoStoreMySQL.php');
 
 // error_log( "Require discostore logos");
 require_once($BASE . 'DiscoStoreLogos.php'); // Replace this with logostore.

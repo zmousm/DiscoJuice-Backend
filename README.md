@@ -7,6 +7,7 @@ Generates DiscoJuice JSON from SAML 2.0 XML Metadata, and pushes to a mongodb st
 Install php5 and more
 
 	apt-get install php5-cli php5-mcrypt php5-curl php5-gd
+	apt-get install php5-mysql mysql-client
 
 Download and locate DiscoJuice-Backend in `/var/DiscoJuice-Backend`.
 

@@ -26,12 +26,10 @@ class DiscoJuiceBackend {
 
 	function loadFeed() {
 
-		$ds = new DiscoStore();
+		$ds = new DiscoStoreMySQL();
 		$this->feedconfiglist = $ds->getFeedList();
 
 		// print_r($list);
-
-
 		// exit;
 		// return $list;
 
