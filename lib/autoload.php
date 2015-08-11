@@ -42,6 +42,7 @@ require_once($BASE . 'feide/Models/FeideOrg.php');
 require_once($BASE . 'feide/KIND.php');
 require_once($BASE . 'feide/FeedBuilder.php');
 require_once($BASE . 'feide/FeideServices.php');
+require_once($BASE . 'feide/FeideDiscoHelper.php');
 require_once($BASE . 'feide/FeideHelper.php');
 require_once($BASE . 'feide/KommuneHelper.php');
 

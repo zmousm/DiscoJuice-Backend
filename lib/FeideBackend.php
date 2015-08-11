@@ -21,12 +21,8 @@ class FeideBackend {
 
 	function update() {
 
-		$feidehelper = new FeideHelper($this->feideconfig);
-		
+		$feidehelper = new FeideDiscoHelper($this->feideconfig);		
 		// $list = $feidehelper->fetchOrgInfo();
-
-
-
 
 	}
 

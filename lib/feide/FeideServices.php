@@ -115,7 +115,7 @@ class FeideServices {
 
 
 		$cachefile = '/tmp/feide-services.json';
-		if (file_exists($cachefile)) {
+		if ($this->feideconfig['cache'] && file_exists($cachefile)) {
 
 			$services = json_decode(file_get_contents($cachefile), true);
 
@@ -238,8 +238,6 @@ class FeideServices {
 
 			// echo "Dump"; print_r($d); 
 			// if ($i++ > 3) exit;
-
-
 			// print_r($services[$k]);
 
 			$item = new FeideService($d);
