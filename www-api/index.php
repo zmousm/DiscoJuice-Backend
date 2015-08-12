@@ -39,7 +39,7 @@ try {
 		exit;
 	}
 
-	$store = new DiscoStore();
+	$store = DiscoStore::getStore();
 	$logostore = new DiscoStoreLogos();
 
 	
@@ -90,18 +90,29 @@ try {
 		// $response = $store->getFeed($parameters[1]);
 
 
-	} else if (DiscoUtils::route('get', '^/feed/([a-z0-9\-_]+)/disco$', $parameters, $body)) {
+	} else if (DiscoUtils::route('get', '^/feed/([a-z0-9\-_]+)$', $parameters, $body)) {
 
-		$response = $store->getFeed($parameters[1]);
+		$fp = new FeedProcessor($store->getFeed($parameters[1]));
+		$response = $fp->process();
 
 	} else if (DiscoUtils::route('get', '^/feed/([a-z0-9\-_]+)/metadata$', $parameters, $body)) {
 
 		$response = $store->getFeedMetadata($parameters[1]);
 
 
-	} else if (DiscoUtils::route('get', '^/apps$', $parameters, $body)) {
+	} else if (DiscoUtils::route('get', '^/logo/([a-z0-9\-_]+)$', $parameters, $qs)) {
 
-		$response = array('foo' => 'bar');
+
+		$param = $parameters[1];
+
+
+
+
+		$data = $logostore->getById($param);
+		// echo "data"; var_dump($data); exit;
+		header('Content-Type: image/png');
+		echo $data['logo']->bin;
+		exit;
 
 
 	} else if (DiscoUtils::route('get', '^/logo$', $parameters, $qs)) {
@@ -126,8 +137,29 @@ try {
 		throw new Exception('Invalid request');
 	}
 
-	header('Content-Type: application/json; charset=utf-8');
-	echo json_encode($response, JSON_PRETTY_PRINT);
+
+	$responseJSON = json_encode($response, JSON_PRETTY_PRINT);
+
+
+	
+
+	if(array_key_exists('callback', $_GET)){
+
+	    header('Content-Type: text/javascript; charset=utf8');
+
+
+	    $callback = $_GET['callback'];
+	    echo $callback.'('.$responseJSON.');';
+
+	}else{
+	    // normal JSON string
+	    header('Content-Type: application/json; charset=utf-8');
+	    echo $responseJSON;
+	}
+
+
+
+	echo $responseJSON;
 
 	// $profiling = microtime(true);
 	// $key = Utils::getPathString();
