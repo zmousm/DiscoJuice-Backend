@@ -8,7 +8,9 @@ abstract class DiscoStore {
 
 	}
 
-
+	static function getStore() {
+		return new DiscoStoreMongoDB();
+	}
 
 	function logProcess($feedId, $timer) {
 

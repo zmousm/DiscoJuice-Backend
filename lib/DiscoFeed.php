@@ -25,14 +25,14 @@ class DiscoFeed {
 		$this->feedconfig = $feedconfig;
 		$this->feedId = $feedId;
 		
-		$this->store = new DiscoStore();
+		$this->store = DiscoStore::getStore();
 
 	}
+
 
 	public function process() {
 
 		$start = microtime(true);
-
 
 		$this->idplist = array();
 		$processedEntities = array();

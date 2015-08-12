@@ -6,7 +6,6 @@ class DiscoStoreMongoDB extends DiscoStore {
 	protected $db;
 
 	function __construct() {
-		throw new Exception("Not in use");
 		$dbconfig = Config::get('db');
 		$client = new MongoClient($dbconfig);
 		$this->db = $client->discojuice;
