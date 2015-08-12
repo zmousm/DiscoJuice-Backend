@@ -49,7 +49,6 @@ class DiscoFeed {
 			if (isset($metadataEntry["EntityAttributes"]) && isset($metadataEntry["EntityAttributes"]["http://macedir.org/entity-category"])) {
 				if (in_array("http://refeds.org/category/hide-from-discovery", $metadataEntry["EntityAttributes"]["http://macedir.org/entity-category"])) {
 					DiscoUtils::log('Skipping entry because refeds.org../hide-from-discovery ' . $entityId . "");
-					print_r($metadataEntry); exit;
 					continue;
 				}
 				
