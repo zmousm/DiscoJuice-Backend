@@ -55,8 +55,6 @@ class DiscoFeed {
 				
 			}
 
-			
-
 			$entry = new FeedItem($entityId, $this->feedId, $metadataEntry, $this->feedconfig);
 			$entry->process();
 			$data = $entry->getJSON();

@@ -25,6 +25,20 @@ class DiscoStoreLogos {
 	}
 
 
+	function getById($id) {
+		$fields = null;
+		// if (!$includeData) {
+		// 	$fields = array('entityId' => true, 'feed' => true, 'etag' => true, 'contentType' => true, 'created' => true, 'updated' => true, 'src' => true);
+		// 	
+		// 	$existing = $this->db->logos->findOne($query, $fields);
+		// 	return $existing;
+		// }
+		$query = ["id" => $id];
+		$existing = $this->db->logos->findOne($query);
+		return $existing;
+	}
+
+
 	function get($entityId, $feed, $includeData = false) {
 
 		$fields = null;
