@@ -26,7 +26,7 @@ class DiscoJuiceBackend {
 
 	function loadFeed() {
 
-		$ds = new DiscoStoreMySQL();
+		$ds = new DiscoStoreMongoDB();
 		$this->feedconfiglist = $ds->getFeedList();
 
 		// print_r($list);
