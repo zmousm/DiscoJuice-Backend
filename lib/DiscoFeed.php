@@ -45,6 +45,7 @@ class DiscoFeed {
 
 			DiscoUtils::log('Processing ' . $entityId);
 
+
 			$entry = new FeedItem($entityId, $this->feedId, $metadataEntry, $this->feedconfig);
 			$entry->process();
 			$data = $entry->getJSON();
