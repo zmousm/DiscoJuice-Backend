@@ -95,17 +95,17 @@ try {
 		// $response = $store->getFeed($parameters[1]);
 
 
-	} else if (DiscoUtils::route('get', '^/feed/([a-z0-9\-_]+)$', $parameters, $body)) {
+	} else if (DiscoUtils::route('get', '^/feeds?/([a-z0-9\-_]+)$', $parameters, $body)) {
 
 		$fp = new FeedProcessor($store->getFeed($parameters[1]));
 		$response = $fp->process();
 
-	} else if (DiscoUtils::route('get', '^/feed/([a-z0-9\-_]+)/metadata$', $parameters, $body)) {
+	} else if (DiscoUtils::route('get', '^/feeds?/([a-z0-9\-_]+)/metadata$', $parameters, $body)) {
 
 		$response = $store->getFeedMetadata($parameters[1]);
 
 
-	} else if (DiscoUtils::route('get', '^/logo/([a-z0-9\-_]+)$', $parameters, $qs)) {
+	} else if (DiscoUtils::route('get', '^/logos?(?:/cached)?/([a-z0-9\-_]+)$', $parameters, $qs)) {
 
 
 		$param = $parameters[1];
@@ -119,8 +119,7 @@ try {
 		echo $data['logo']->bin;
 		exit;
 
-
-	} else if (DiscoUtils::route('get', '^/logo$', $parameters, $qs)) {
+	} else if (DiscoUtils::route('get', '^/logos?$', $parameters, $qs)) {
 
 		if (!isset($_REQUEST['entityId'])) {
 			throw new Exception('Missing required parameter entityId');
