@@ -126,7 +126,7 @@ class DiscoUtils {
 		}
 		
 		// echo "Checking MATCH [" . $match . "] against path [" . $path . "]";
-		if (!preg_match('|' . $match . '|', $path, $parameters)) return false;
+		if (!preg_match('(' . $match . ')', $path, $parameters)) return false;
 		return true;
 		
 	}
