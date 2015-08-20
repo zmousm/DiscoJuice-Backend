@@ -61,12 +61,17 @@ try {
 		// $response = $list;
 
 
-	} else if (DiscoUtils::route('get', '^/geo$', $parameters, $body)) {
+	} else if (DiscoUtils::route('get', '^/(geo|country)$', $parameters, $body)) {
 		$geoservice = new GeoService();
 		$data = array();
 		$clientIP = $_SERVER['REMOTE_ADDR'];
 		$data['country'] = $geoservice->countryFromIP($clientIP);
 		$data['geo'] = $geoservice->geoFromIP($clientIP);
+		if ($data['country'] === null || $data['geo'] === null) {
+			$data['status'] = 'error';
+		} else {
+			$data['status'] = 'ok';
+		}
 		$response = $data;
 
 	} else if (DiscoUtils::route('get', '^/pipe/([a-z0-9\-_]+)$', $parameters, $body)) {
