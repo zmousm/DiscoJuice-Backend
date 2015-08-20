@@ -97,12 +97,19 @@ try {
 
 	} else if (DiscoUtils::route('get', '^/feeds?/([a-z0-9\-_]+)$', $parameters, $body)) {
 
-		$fp = new FeedProcessor($store->getFeed($parameters[1]));
+		$feed = $store->getFeed($parameters[1]);
+		if (empty($feed)) {
+			throw new NotFound('A feed was not found by this id: '.$parameters[1]);
+		}
+		$fp = new FeedProcessor($feed);
 		$response = $fp->process();
 
 	} else if (DiscoUtils::route('get', '^/feeds?/([a-z0-9\-_]+)/metadata$', $parameters, $body)) {
 
 		$response = $store->getFeedMetadata($parameters[1]);
+		if (empty($response)) {
+			throw new NotFound('A feed was not found by this id: '.$parameters[1]);
+		}
 
 
 	} else if (DiscoUtils::route('get', '^/logos?(?:/cached)?/([a-z0-9\-_]+)$', $parameters, $qs)) {
@@ -115,6 +122,9 @@ try {
 
 		$data = $logostore->getById($param);
 		// echo "data"; var_dump($data); exit;
+		if ($data === null) {
+			throw new NotFound('A logo was not found by this id: '.$param);
+		}
 		header('Content-Type: image/png');
 		echo $data['logo']->bin;
 		exit;
@@ -131,6 +141,9 @@ try {
 		$data = $logostore->get($_REQUEST['entityId'], $_REQUEST['feed'], true);
 		// $data = $logostore->get('https://pieter.aai.surfnet.nl/simplesamlphp/saml2/idp/metadata.php', 'surfnet2', true);
 
+		if ($data === null) {
+			throw new NotFound('A logo was not found by these parameters');
+		}
 		header('Content-Type: image/png');
 		echo $data['logo']->bin;
 		exit;
@@ -172,19 +185,18 @@ try {
 
 	// UWAPLogger::stat('timing', $key, $timer);
 
-// } catch(NotFound $e) {
+} catch(NotFound $e) {
 
-// 	header("HTTP/1.0 404 Not Found");
-// 	header('Content-Type: text/plain; charset: utf-8');
-// 	echo "Error stack trace: \n";
-// 	print_r($e);
+	header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
+	header('Content-Type: text/plain; charset: utf-8');
+	echo $e->getMessage() ."\n";
 
 
 } catch(Exception $e) {
 
 	// TODO: Catch OAuth token expiration etc.! return correct error code.
 
-	// header("HTTP/1.0 500 Internal Server Error");
+	header($_SERVER['SERVER_PROTOCOL'].' 500 Internal Server Error');
 	header('Content-Type: text/plain; charset: utf-8');
 	echo "Error stack trace: \n";
 	print_r($e);
