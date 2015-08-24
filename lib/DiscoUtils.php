@@ -52,6 +52,15 @@ class DiscoUtils {
 	}
 
 
+	public static function array_strrev_keys($input) {
+		$output = array();
+		foreach ($input as $k => $v) {
+			$output[strrev($k)] = $v;
+		}
+		return $output;
+	}
+
+
 	/**
 	 * Find the default endpoint in an endpoint array.
 	 *
