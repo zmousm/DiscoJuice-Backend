@@ -159,6 +159,7 @@ try {
 	$responseJSON = json_encode($response, JSON_PRETTY_PRINT);
 
 
+	ob_start('ob_gzhandler');
 	
 
 	if(array_key_exists('callback', $_GET)){
