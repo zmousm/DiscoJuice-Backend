@@ -100,6 +100,25 @@ class FeedItem {
 	}
 
 
+	public function getFilterMatch() {
+		if (isset($this->feedconfig['FilterExpr']) &&
+		is_string($this->feedconfig['FilterExpr'])) {
+			$filterExpr = $this->feedconfig['FilterExpr'];
+		} else {
+			return true;
+		}
+
+		$entityId = $this->entityId;
+		if (isset($this->disco['country']))
+			$country = $this->disco['country'];
+		$metadata = $this->metadata;
+		$disco = $this->disco;
+
+		$fexpr = 'return '. $filterExpr .';';
+		return eval($fexpr);
+	}
+
+
 
 	/**
 	 * Process metadata, and set a country tag to indicate which country this entry comes from.

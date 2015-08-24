@@ -60,6 +60,11 @@ class DiscoFeed {
 
 			$entry = new FeedItem($entityId, $this->feedId, $metadataEntry, $this->feedconfig);
 			$entry->process();
+			if (isset($this->feedconfig["FilterExpr"]) &&
+				!$entry->getFilterMatch()) {
+				DiscoUtils::log('Skipping entry because it does not match '. $this->feedId .' FilterExpr ' . $entityId);
+				continue;
+			}
 			$data = $entry->getJSON();
 			
 			// echo json_encode($data['disco'], JSON_PRETTY_PRINT) . "\n\n";
