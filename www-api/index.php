@@ -97,13 +97,15 @@ try {
 
 	} else if (DiscoUtils::route('get', '^/feeds?/([a-z0-9\-_]+)$', $parameters, $body)) {
 
+		$filter = isset($_REQUEST['filter']) ? $_REQUEST['filter'] : false;
+
 		header('Vary: Accept-Language');
 		$feed = $store->getFeed($parameters[1]);
 		if (empty($feed)) {
 			throw new NotFound('A feed was not found by this id: '.$parameters[1]);
 		}
 		$fp = new FeedProcessor($feed);
-		$response = $fp->process();
+		$response = $fp->process($filter);
 
 	} else if (DiscoUtils::route('get', '^/feeds?/([a-z0-9\-_]+)/metadata$', $parameters, $body)) {
 

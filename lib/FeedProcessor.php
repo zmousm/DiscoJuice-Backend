@@ -73,16 +73,32 @@ class FeedProcessor {
 		return $res;
 	}
 
-	function process() {
+	function process($filterExpr = false) {
 
 		$res = [];
 
 		foreach($this->feed AS $item) {
 
+			if (is_string($filterExpr) &&
+				!self::entity_filter($item, $filterExpr)) {
+				continue;
+			}
 			$res[] = $this->processItem($item);
 
 		}
 		return $res;
+
+	}
+
+	static function entity_filter($item, $filterExpr) {
+
+		$entityId = $item['entityId'];
+		$country = $item['disco']['country'];
+		$metadata = $item['metadata'];
+		$disco = $item['disco'];
+
+		$fexpr = 'return '. $filterExpr .';';
+		return eval($fexpr);
 
 	}
 
