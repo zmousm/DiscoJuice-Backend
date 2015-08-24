@@ -3,12 +3,17 @@
 class DiscoUtils {
 
 	protected static $logConsole = true;
+	public static function isCLI() {
+		return php_sapi_name() === 'cli';
+	}
 
 	public static function logConsole($en = true) {
 		self::$logConsole = $en;
 	}
 
 	public static function log($txt, $head = false) {
+		if (!self::isCLI())
+			return;
 
 		if (!self::$logConsole) {
 			error_log('DiscoJuice Logger: ' . $txt);
@@ -26,12 +31,16 @@ class DiscoUtils {
 	}
 
 	public static function error($txt) {
+		if (!self::isCLI())
+			return;
 
 		tcechon(date('F jS H:i:s') . "    " . $txt, 'white', 'on_red');	
 
 	}
 	
 	public static function debug($txt) {
+		if (!self::isCLI())
+			return;
 		tcechon(date('F jS H:i:s') . "    " . $txt, 'white');	
 	}
 
