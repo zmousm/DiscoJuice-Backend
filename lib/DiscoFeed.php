@@ -53,6 +53,10 @@ class DiscoFeed {
 				}
 				
 			}
+			if (isset($this->feedconfig["excludes"]) && in_array($entityId, $this->feedconfig["excludes"])) {
+				DiscoUtils::log('Skipping entry due to '. $this->feedId .' feed excludes ' . $entityId);
+				continue;
+			}
 
 			$entry = new FeedItem($entityId, $this->feedId, $metadataEntry, $this->feedconfig);
 			$entry->process();
