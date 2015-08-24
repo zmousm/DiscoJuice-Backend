@@ -97,6 +97,7 @@ try {
 
 	} else if (DiscoUtils::route('get', '^/feeds?/([a-z0-9\-_]+)$', $parameters, $body)) {
 
+		header('Vary: Accept-Language');
 		$feed = $store->getFeed($parameters[1]);
 		if (empty($feed)) {
 			throw new NotFound('A feed was not found by this id: '.$parameters[1]);
