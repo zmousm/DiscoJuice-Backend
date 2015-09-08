@@ -8,6 +8,7 @@ function url_get_contents ($Url) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $Url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,2); 
 	curl_setopt($ch, CURLOPT_TIMEOUT, 2); //timeout in seconds
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
@@ -20,6 +21,13 @@ function url_get_contents ($Url) {
     if ($output === false) {
     	$err = curl_error($ch);
     	DiscoUtils::error('Error downloading from [' . $Url . '] ' . $err);
+    }
+
+    $resp_content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+    if (strpos($resp_content_type, 'image/') !== 0) {
+        $err = 'Invalid Content-Type: ' . $resp_content_type;
+        DiscoUtils::error('Error downloading from [' . $Url . '] ' . $err);
+        return false;
     }
     curl_close($ch);
 
