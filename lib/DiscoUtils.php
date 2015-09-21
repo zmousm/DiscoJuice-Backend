@@ -11,12 +11,22 @@ class DiscoUtils {
 		self::$logConsole = $en;
 	}
 
+	public static function cleanLogMsg($txt) {
+		$cleantxt = preg_replace('/\x1b(\[|\(|\))[;?0-9]*[0-9A-Za-z]/', "", $txt);
+		$cleantxt = preg_replace('/[\x03|\x1a]/', "", $cleantxt);
+		return $cleantxt;
+	}
+
 	public static function log($txt, $head = false) {
 		if (!self::isCLI())
 			return;
 
 		if (!self::$logConsole) {
-			error_log('DiscoJuice Logger: ' . $txt);
+			if (ini_get('error_log') === 'syslog') {
+				syslog(LOG_DAEMON | LOG_ERR, self::cleanLogMsg($txt));
+			} else {
+				error_log('DiscoJuice Logger: ' . $txt);
+			}
 			return;
 		}
 
@@ -34,6 +44,15 @@ class DiscoUtils {
 		if (!self::isCLI())
 			return;
 
+		if (!self::$logConsole) {
+			if (ini_get('error_log') === 'syslog') {
+				syslog(LOG_DAEMON | LOG_ERR, self::cleanLogMsg($txt));
+			} else {
+				error_log('DiscoJuice Error: ' . $txt);
+			}
+			return;
+		}
+
 		tcechon(date('F jS H:i:s') . "    " . $txt, 'white', 'on_red');	
 
 	}
@@ -41,6 +60,14 @@ class DiscoUtils {
 	public static function debug($txt) {
 		if (!self::isCLI())
 			return;
+		if (!self::$logConsole) {
+			if (ini_get('error_log') === 'syslog') {
+				syslog(LOG_DAEMON | LOG_DEBUG, self::cleanLogMsg($txt));
+			} else {
+				error_log('DiscoJuice Debug: ' . $txt);
+			}
+			return;
+		}
 		tcechon(date('F jS H:i:s') . "    " . $txt, 'white');	
 	}
 

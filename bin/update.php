@@ -19,6 +19,10 @@ $command->option('cache-only')
 	->boolean()
 	->describedAs('Do not load metadata, only use existing cache.');
 
+$command->option('syslog')
+	->boolean()
+	->describedAs('Send output to syslog.');
+
 if ($command[0] === 'termcolor') {
 	phpterm_demo();
 	exit;
@@ -27,6 +31,11 @@ if ($command[0] === 'termcolor') {
 
 
 $backend = new DiscoJuiceBackend();
+if ($command['syslog']) {
+	ini_set('error_log', 'syslog');
+	openlog('DiscoJuice');
+	DiscoUtils::logConsole(false);
+}
 if ($command['cache-only']) {
 	DiscoUtils::log("Running in cache-only mode");
 	$backend->enableCacheOnly(true);	
