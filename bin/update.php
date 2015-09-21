@@ -33,7 +33,7 @@ if ($command[0] === 'termcolor') {
 $backend = new DiscoJuiceBackend();
 if ($command['syslog']) {
 	ini_set('error_log', 'syslog');
-	openlog('DiscoJuice');
+	openlog('DiscoJuice', LOG_ODELAY, LOG_DAEMON);
 	DiscoUtils::logConsole(false);
 }
 if ($command['cache-only']) {

@@ -23,7 +23,7 @@ class DiscoUtils {
 
 		if (!self::$logConsole) {
 			if (ini_get('error_log') === 'syslog') {
-				syslog(LOG_DAEMON | LOG_ERR, self::cleanLogMsg($txt));
+				syslog(LOG_ERR, self::cleanLogMsg($txt));
 			} else {
 				error_log('DiscoJuice Logger: ' . $txt);
 			}
@@ -46,7 +46,7 @@ class DiscoUtils {
 
 		if (!self::$logConsole) {
 			if (ini_get('error_log') === 'syslog') {
-				syslog(LOG_DAEMON | LOG_ERR, self::cleanLogMsg($txt));
+				syslog(LOG_ERR, self::cleanLogMsg($txt));
 			} else {
 				error_log('DiscoJuice Error: ' . $txt);
 			}
@@ -62,7 +62,7 @@ class DiscoUtils {
 			return;
 		if (!self::$logConsole) {
 			if (ini_get('error_log') === 'syslog') {
-				syslog(LOG_DAEMON | LOG_DEBUG, self::cleanLogMsg($txt));
+				syslog(LOG_DEBUG, self::cleanLogMsg($txt));
 			} else {
 				error_log('DiscoJuice Debug: ' . $txt);
 			}
