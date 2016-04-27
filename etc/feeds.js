@@ -324,7 +324,7 @@
 		"zoom": 6
 	},
 	"grnet": {
-		"url": "http://aai.grnet.gr/metadata.xml",
+		"url": "https://md.aai.grnet.gr/aggregates/grnet-metadata.xml",
 		"country": "GR",
 		"CountrySearch": "Greece",
 		"zoom": 6
